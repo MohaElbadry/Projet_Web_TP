@@ -17,6 +17,11 @@ Pour utiliser ce projet, vous aurez besoin de :
 3. Importez le fichier `BASE_DE_DONNE.sql` dans votre base de données MySQL.
 5. Ouvrez votre navigateur web et accédez à l'application en saisissant l'URL `http://localhost/nom_du_répertoire_du_projet`.
 
+##Login 
+
+### login: admin 
+### password: admin
+
 ---
 Je suis Mohammed El Badry, et je suis heureux de partager ce projet avec vous .
 
