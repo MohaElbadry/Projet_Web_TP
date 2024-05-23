@@ -121,7 +121,7 @@
                                                                             </thead>
                                                                             <tbody>
                                                                             <?php
-                                                                            include_once("C:\wamp\www\Mini\Metier\ligneAppro.php");
+                                                                            include_once("C:\laragon\www\Mini\Metier\ligneAppro.php");
                                                                             $tabl = LigneAppro::afficher($t->get("n"));
                                                                             
                                                                                 $dao = new DAO();

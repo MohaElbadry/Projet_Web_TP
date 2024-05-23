@@ -306,28 +306,7 @@ require("../DAO/DAO.php");
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-4">
-                        <div class="card">
-                            <div class="card-header">
-                                <h4>Produit en Tendance</h4>
-                            </div>
-                            <div class="card-content pb-4">
-                                <?php include_once "../Metier/produit.php";$tp = DAO::Trending(3);
-                                    $i=1;
-                                        foreach($tp as $t){?>
-                                <div class="card d-flex flex-row align-items-center" style="width: 80%; background-color: var(--bs-body-bg);margin:1rem 1.5rem;border: 1px var(--bs-body-bg) solid;">
-                                    <img class="card-img-top" src="../assets/photos/<?=$t->get("i")?>" style="width: 75px; height:110px ;border-radius:0.7rem">
-                                    <div class="card-body d-flex flex-column" style="padding:0.5rem;">
-                                        <p class="card-text refer align-self-start" style="font-size: 1.1rem; font-weight:bold;"><?php echo $i.". ".$t->get("l");?></p>
-                                        <p class="card-text text-center libel align-self-end" style="font-size: 0.9rem;"><?=$t->get("p")?> Dhs</p>    
-                                    </div>
-                                </div>
-                        <?php
-                            $i++; }
-                        ?>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </section>
         </div>
@@ -357,12 +336,12 @@ require("../DAO/DAO.php");
 
         <script src="../../assets/js/functions.js"></script>
         <?php 
-            $stmt = DAO::Stats();
-            $dh="Dh";
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                $month[] = $row['month'];
-                $prix[] = $row['prix'];
-            }
+            // $stmt = DAO::Stats();
+            // $dh="Dh";
+            // while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
+            //     $month[] = $row['month'];
+            //     $prix[] = $row['prix'];
+            // }
         ?>
         <script>
             var ctx = document.getElementById("chart1").getContext("2d");

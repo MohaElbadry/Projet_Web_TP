@@ -108,12 +108,7 @@
                                                     name="image" aria-describedby="inputGroupFileAddon04"
                                                     aria-label="Upload">
                                             </div>
-                                            <div class="form-group">
-                                                <label for="inputGroupFile04">Description</label>
-                                                <textarea type="file" class="form-control" id="inputGroupFile04"
-                                                     aria-describedby="inputGroupFileAddon04"
-                                                    aria-label="Upload" row="3" name="desc"></textarea>
-                                            </div>
+                                            
                                             <div class="col-12 d-flex justify-content-end">
                                                 <input type="submit" value="Ajouter" class="btn btn-primary me-1 mb-1"
                                                     name="submit">

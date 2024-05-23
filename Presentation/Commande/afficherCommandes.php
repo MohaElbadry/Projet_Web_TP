@@ -62,7 +62,7 @@
                                         </thead>
                                         <tbody>
                                             <?php
-                                            include_once("C:\wamp\www\Mini\Metier\client.php");
+                                            include_once("C:\laragon\www\Mini\Metier\client.php");
                                             $tab = Commande::afficher();
                                             echo "<tr>";
                                             $dao = new DAO();
@@ -122,7 +122,7 @@
                                                                             </thead>
                                                                             <tbody>
                                                                                 <?php
-                                                                            include_once("C:\wamp\www\Mini\Metier\ligneCmd.php");
+                                                                            include_once("C:\laragon\www\Mini\Metier\ligneCmd.php");
                                                                             $tabl = LigneCmd::afficher($t->get("n"));
                                                                             
                                                                                 $dao = new DAO();

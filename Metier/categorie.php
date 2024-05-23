@@ -1,5 +1,5 @@
 <?php
-include_once "C:\wamp\www\Mini\DAO\DAO.php  ";
+include_once "C:\laragon\www\Mini\DAO\DAO.php  ";
 
 class Categorie{
     private $idCategorie;

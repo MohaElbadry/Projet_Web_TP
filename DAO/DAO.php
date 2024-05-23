@@ -1,11 +1,15 @@
 <?php
 // require("../Metier/client.php");
-
+function getPDO(){
+            return new PDO("mysql:host=localhost:3306;dbname=projet_gestion_stock", "root", "");
+        
+        }   
     class DAO{
 
         function getPDO(){
-            return new PDO("mysql:host=sql11.freemysqlhosting.net;dbname=sql11646364;","sql11646364","padBMkgryA");
-        }
+            return new PDO("mysql:host=localhost:3306;dbname=projet_gestion_stock", "root", "");
+        
+        }   
 
         function authentification($login, $password){
             $pdo = $this->getPDO();
@@ -53,7 +57,7 @@
         }
 
         static function getClient($id){
-            $pdo=new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo=getPDO();
             $stmt=$pdo->prepare("SELECT * FROM client where idClient=?;");
             $stmt->execute(array($id));
     
@@ -83,8 +87,7 @@
         }
 
         static function deleteClient($id){
-            // $pdo=$this->getPDO();
-            $pdo=new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo=getPDO();
             $stmt=$pdo->prepare("DELETE FROM client where idClient=?; ");
             $stmt->execute(array($id));
         }
@@ -113,7 +116,7 @@
         }
 
         static function getFournisseur($id){
-            $pdo=new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo=getPDO();
             $stmt=$pdo->prepare("SELECT * FROM fournisseur where idFournisseur=?;");
             $stmt->execute(array($id));
     
@@ -140,9 +143,9 @@
 
         function ajouterProduit($obj){
             $pdo = $this->getPDO();
-            $stmt=$pdo->prepare("INSERT INTO produit(reference,libelle,prixUnitaire,quantiteStock,prixAchat,image,idCategorie,description) VALUES(?,?,?,?,?,?,?,?)");
-            $stmt->execute(array($obj->get("r"),$obj->get("l"),$obj->get("p"),$obj->get("q"),$obj->get("a"),$obj->get("i"),$obj->get("c"),$obj->get("d")));
-            //header("location:../Presentation/afficherProduits.php");
+            $stmt=$pdo->prepare("INSERT INTO produit(reference,libelle,prixUnitaire,quantiteStock,prixAchat,image,idCategorie) VALUES(?,?,?,?,?,?,?)");
+            $stmt->execute(array($obj->get("r"),$obj->get("l"),$obj->get("p"),$obj->get("q"),$obj->get("a"),$obj->get("i"),$obj->get("c")));
+            header("location:../Presentation/Produit/afficherProduits.php");
         }
 
         function afficherProduits(){
@@ -152,13 +155,13 @@
             $produits=[];
             while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
                 extract($row);
-                $produits[]=new Produit($reference,$libelle,$prixUnitaire,$quantiteStock,$prixAchat,$image,$nomCategorie,$description);
+                $produits[]=new Produit($reference,$libelle,$prixUnitaire,$quantiteStock,$prixAchat,$image,$nomCategorie);
             }
             return $produits;
         }
 
         static function afficherProduitsByCat($cat){
-            $pdo=new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo = getPDO();
             $stmt=$pdo->prepare("SELECT * FROM produit natural join categorie where idCategorie='$cat'");
             $stmt->execute();
             $produits=[];
@@ -170,7 +173,7 @@
         }
 
         static function getProduit($ref){
-            $pdo=new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo = getPDO();
             $stmt=$pdo->prepare("SELECT * FROM produit where reference=?;");
             $stmt->execute(array($ref));
     
@@ -183,8 +186,8 @@
 
         function updateProduit($obj){
             $pdo=$this->getPDO();
-            $stmt=$pdo->prepare("UPDATE produit SET libelle=?,prixUnitaire=?,quantiteStock=?,prixAchat=?,image=?,idCategorie=?,description=? where reference=?; ");
-            $stmt->execute(array($obj->get("l"),$obj->get("p"),$obj->get("q"),$obj->get("a"),$obj->get("i"),$obj->get("c"),$obj->get("r"),$obj->get("d")));
+            $stmt=$pdo->prepare("UPDATE produit SET libelle=?,prixUnitaire=?,quantiteStock=?,prixAchat=?,image=?,idCategorie=? where reference=?; ");
+            $stmt->execute(array($obj->get("l"),$obj->get("p"),$obj->get("q"),$obj->get("a"),$obj->get("i"),$obj->get("c"),$obj->get("r")));
         }
 
         function deleteProduit($id){
@@ -240,7 +243,7 @@
         }
 
         static function getCommandeId($date,$idClient){
-            $pdo= new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo = getPDO();
             $stmt=$pdo->prepare("SELECT numeroCmd FROM commande where date=? AND idClient=?;");
             $stmt->execute(array($date,$idClient));
     
@@ -252,23 +255,23 @@
         }
 
         function deleteCommande($id){
-            $pdo=$this->getPDO();
+            $pdo = getPDO();
             $stmt=$pdo->prepare("DELETE FROM commande where numeroCmd=?; ");
             $stmt->execute(array($id));
         }
 
-        static function Stats(){
-            $pdo= new PDO("mysql:host=localhost;dbname=tp5;","root","");
-            $stmt=$pdo->prepare("SELECT date_format(commande.date,'%m-%y') as monthnum,date_format(commande.date,'%M %Y') as month,sum(prixVente) as prix 
-                                FROM commande natural join lignecmd group by monthname(commande.date) order by `monthnum` ASC;");
-            $stmt->execute();
-            return $stmt;
+        // static function Stats(){
+        //     $pdo = getPDO();
+        //     $stmt=$pdo->prepare("SELECT date_format(commande.date,'%m-%y') as monthnum,date_format(commande.date,'%M %Y') as month,sum(prixVente) as prix 
+        //                         FROM commande natural join lignecmd group by monthname(commande.date) order by `monthnum` ASC;");
+        //     $stmt->execute();
+        //     return $stmt;
             
-            return 0;
-        }
+        //     return 0;
+        // }
 
         static function Income(){
-            $pdo= new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo = getPDO();
             $stmt=$pdo->prepare("SELECT sum(prixVente) as prix FROM commande natural join lignecmd ;");
             $stmt->execute();
     
@@ -278,23 +281,24 @@
             }
             return null;
         }
+        // static function Trending($nbr){
+        //     $pdo = getPDO();  // Ensure this method exists and correctly initializes a PDO instance.
+        //     $stmt = $pdo->prepare("SELECT reference, MAX(commande.date) as latest_date, COUNT(reference) as num
+        //                             FROM commande
+        //                             NATURAL JOIN lignecmd
+        //                             WHERE commande.date < NOW() AND commande.date > DATE_SUB(NOW(), INTERVAL 7 DAY)
+        //                             GROUP BY reference
+        //                             ORDER BY num DESC, latest_date DESC
+        //                             LIMIT ?");
+        //     $stmt->execute([$nbr]);
+        //     $produits = [];
+        //     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)) {
+        //         $produits[] = DAO::getProduit($row['reference']);
+        //     }
+        //     return $produits;
+        // }
 
-        static function Trending($nbr){
-            $pdo= new PDO("mysql:host=localhost;dbname=tp5;","root","");
-            $stmt=$pdo->prepare("SELECT reference,count(reference) as num 
-                                FROM commande natural join lignecmd 
-                                where commande.date < now() and commande.date > DATE_SUB(now(), INTERVAL 7 DAY) 
-                                group by reference 
-                                order by `num` desc,commande.date desc limit $nbr;");
-            $stmt->execute();
-            $produits=[];
-            while($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-                extract($row);
-                $produits[]=DAO::getProduit($reference);
-            }
-            return $produits;
-
-        }
+       
 //Approvisionnement////////
 
         function ajouterApprovis($obj){
@@ -342,7 +346,7 @@
         }
 
         static function getApprovisId($date,$idFournisseur){
-            $pdo= new PDO("mysql:host=localhost;dbname=tp5;","root","");
+            $pdo=getPDO();
             $stmt=$pdo->prepare("SELECT numeroAppro FROM approvisionnement where date=? AND idFournisseur=?;");
             $stmt->execute(array($date,$idFournisseur));
 
@@ -469,5 +473,5 @@ function totalAppro($id){
 
 
 
-    }
+}
 ?>
